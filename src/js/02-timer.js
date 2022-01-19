@@ -30,18 +30,21 @@ const options = {
         } else {
             Notiflix.Notify.failure('Please choose a date in the future');
             // alert("Please choose a date in the future");
-            };      
+        };      
     },
 };
 
 function onStartBtnClick(diff) {  
     refs.startBtn.setAttribute("disabled", "disabled");
+    refs.picker.setAttribute("disabled", "disabled");
     updateTimer(convertMs(diff));
     const intervalId = setInterval(function () {
         diff -= 1000;
         updateTimer(convertMs(diff));
         if (diff < 1000) {
             clearInterval(intervalId);
+            Notiflix.Notify.success('Time is out');
+            refs.picker.removeAttribute("disabled");
         }
     }, 1000);
 }
